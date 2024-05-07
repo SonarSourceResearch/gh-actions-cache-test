@@ -1,0 +1,28 @@
+name: pwn
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  saucelabs:
+    runs-on: ubuntu-latest-4core
+    #env:
+    #  SAUCE_TUNNEL_IDENTIFIER: angular-framework-${{ github.run_number }}
+    #  SAUCE_USERNAME: ${{ vars.SAUCE_USERNAME }}
+    #  SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+    steps:
+      #- name: Initialize environment
+      #  uses: angular/dev-infra/github-actions/npm/checkout-and-setup-node@5774b71c01a55c4c998f858ee37d3b77ae704c31
+      #  with:
+      #    cache-node-modules: true
+      #    # Checking out the pull request commit is intended here as we need to run the changed code tests.
+      #    ref: ${{ github.event.pull_request.head.sha }}
+      - name: Foo
+        run: env
