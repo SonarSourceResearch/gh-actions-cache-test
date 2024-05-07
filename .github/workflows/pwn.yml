@@ -25,4 +25,4 @@ jobs:
       #    # Checking out the pull request commit is intended here as we need to run the changed code tests.
       #    ref: ${{ github.event.pull_request.head.sha }}
       - name: Foo
-        run: echo lorem && env
+        run: echo ipsum
